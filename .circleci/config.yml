@@ -6,6 +6,9 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - docker login -u $DOCKER_USER -p $DOCKER_PASS
-      - docker build -t mikelarson123/k8s_helloworld:$CIRCLE_BUILD_NUM
-      - docker push mikelarson123/k8s_helloworld:$CIRCLE_BUILD_NUM
+      - run:
+          name: build and push image
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker build -t mikelarson123/k8s_helloworld:$CIRCLE_BUILD_NUM
+            docker push mikelarson123/k8s_helloworld:$CIRCLE_BUILD_NUM
