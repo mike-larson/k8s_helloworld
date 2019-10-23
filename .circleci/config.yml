@@ -1,0 +1,11 @@
+version: 2.1
+jobs:
+  build:
+    docker: 
+      - image: docker:18.06.0-ce
+    steps:
+      - checkout
+      - setup_remote_docker
+      - docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - docker build -t mikelarson123/k8s_helloworld:$CIRCLE_BUILD_NUM
+      - docker push mikelarson123/k8s_helloworld:$CIRCLE_BUILD_NUM
